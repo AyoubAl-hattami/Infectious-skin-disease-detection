@@ -1,0 +1,27 @@
+# .dvcignore
+# Files/directories to ignore when tracking with DVC
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDEs
+.vscode/
+.idea/
+
+# Temporary
+*.tmp
+~*
+
+# Metadata files (keep in Git, not DVC)
+*.csv
+*.json
+*.yaml
+*.yml
+
+# Keep only images/models in DVC

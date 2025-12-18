@@ -1,0 +1,66 @@
+# configs/preprocessing_config.yaml
+
+# Data Paths
+data:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  classes:
+    - "Cellulitis"
+    - "Folliculitis"
+    - "Impetigo"
+    - "Tinea"
+  metadata_files:
+    Cellulitis: "data/raw/Cellulitis_images.csv"
+    Folliculitis: "data/raw/Folliculitis_images.csv"
+    Impetigo: "data/raw/Impetigo_images.csv"
+    Tinea: "data/raw/Tinea_images.csv"
+
+# Image Processing Parameters
+image:
+  target_size: [224, 224]
+  color_mode: "RGB"
+  
+  # Normalization for MedImageInsight
+  normalization:
+    method: "standard"  # Options: "standard", "min_max", "none"
+    mean: [0.5, 0.5, 0.5]
+    std: [0.5, 0.5, 0.5]
+  
+  augmentation:
+    enabled: false
+
+# Class Balance
+class_balance:
+  enabled: true
+  method: "undersample"  # Undersample to match smallest class
+  
+# Train/Val/Test Split
+split:
+  train: 0.7
+  val: 0.15
+  test: 0.15
+  stratify: true
+  random_seed: 42
+
+# Quality Filtering
+quality_filtering:
+  enabled: true
+  use_duplicates: false   # Exclude images marked as duplicates
+
+# Output
+output:
+  save_to_disk: true
+  create_dataloaders: true
+  batch_size: 32
+  num_workers: 4
+
+# DVC & MLflow
+tracking:
+  dvc_enabled: true
+  mlflow_enabled: true
+  dagshub_repo: "awob501/my-first-repo"
+  
+# Logging
+logging:
+  level: "INFO"
+  log_file: "logs/preprocessing.log"

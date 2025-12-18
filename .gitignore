@@ -1,0 +1,87 @@
+# =========================
+# Python
+# =========================
+pycache/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.Python
+.env
+.venv
+venv/
+ENV/
+env/
+
+# =========================
+# Jupyter
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# OS / Editor
+# =========================
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# =========================
+# Logs & runtime artifacts
+# =========================
+logs/*.log
+logs/*.png
+*.log
+
+# =========================
+# Data (handled by DVC)
+# =========================
+data/raw/
+data/processed/
+reports/
+Official data/
+data/Derm1M_v2_validation.csv
+data/Derm1M_v2_pretrain.csv
+
+
+# Keep DVC tracking files
+!data/processed.dvc
+!reports.dvc
+
+# =========================
+# DVC
+# =========================
+.dvc/cache/
+.dvc/tmp/
+
+# =========================
+# MLflow
+# =========================
+mlruns/
+
+# =========================
+# Training outputs
+# =========================
+checkpoints/
+outputs/
+models/
+*.pt
+*.pth
+
+# =========================
+# Temporary / generated
+# =========================
+*.tmp
+*.bak
+*.old
+/reports
+# DVC tracked directories (tracked by DVC, ignored by Git)
+/data/processed
+*.pyc
+__pycache__/
+*.egg-info/
+# Models (will be DVC tracked later)
+*.h5
+/models/
+# IDEs

@@ -78,9 +78,9 @@ class SkinDiseaseDataset(Dataset):
         img = Image.open(img_path).convert('RGB')
         img_array = np.array(img, dtype=np.float32) / 255.0
         
-        # Apply ImageNet normalization (for DenseNet-121 pretrained weights)
-        mean = np.array([0.485, 0.456, 0.406])
-        std = np.array([0.229, 0.224, 0.225])
+        # Apply MedImageInsight normalization
+        mean = np.array([0.5, 0.5, 0.5])
+        std = np.array([0.5, 0.5, 0.5])
         img_array = (img_array - mean) / std
         
         return img_array

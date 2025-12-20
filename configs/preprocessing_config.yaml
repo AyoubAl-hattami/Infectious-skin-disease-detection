@@ -1,5 +1,3 @@
-# configs/preprocessing_config.yaml
-
 # Data Paths
 data:
   raw_dir: "data/raw"
@@ -20,11 +18,11 @@ image:
   target_size: [224, 224]
   color_mode: "RGB"
   
-  # Normalization for MedImageInsight
+  # Normalization for DenseNet-121 (ImageNet pretrained)
   normalization:
-    method: "standard"  # Options: "standard", "min_max", "none"
-    mean: [0.5, 0.5, 0.5]
-    std: [0.5, 0.5, 0.5]
+    method: "standard"
+    mean: [0.485, 0.456, 0.406]  # ImageNet mean
+    std: [0.229, 0.224, 0.225]   # ImageNet std
   
   augmentation:
     enabled: false
@@ -32,7 +30,7 @@ image:
 # Class Balance
 class_balance:
   enabled: true
-  method: "undersample"  # Undersample to match smallest class
+  method: "undersample"
   
 # Train/Val/Test Split
 split:
@@ -45,7 +43,7 @@ split:
 # Quality Filtering
 quality_filtering:
   enabled: true
-  use_duplicates: false   # Exclude images marked as duplicates
+  use_duplicates: false
 
 # Output
 output:

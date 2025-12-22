@@ -1,0 +1,58 @@
+# Model Configuration
+model:
+  name: "densenet121"  # densenet121, resnet50, efficientnet_b0, vit_b_16
+  num_classes: 4
+  pretrained: true
+  
+# Training Hyperparameters
+training:
+  num_epochs: 10
+  
+  # Optimizer
+  optimizer:
+    type: "adam"  # adam, sgd, adamw
+    encoder_lr: 1.0e-5      # Lower LR for pretrained encoder
+    classifier_lr: 1.0e-4   # Higher LR for new classifier head
+    weight_decay: 0.0001
+  
+  # Learning Rate Scheduler (optional)
+  scheduler:
+    enabled: false
+    type: "step"  # step, cosine, plateau
+    step_size: 5
+    gamma: 0.1
+  
+  # Loss Function
+  loss:
+    type: "cross_entropy"  # cross_entropy, focal_loss
+    use_class_weights: true
+
+# Evaluation Configuration
+evaluation:
+  run_on: "both"  # "val", "test", "both"
+  save_predictions: false
+  metrics:
+    - "accuracy"
+    - "precision"
+    - "recall"
+    - "f1_score"
+    - "confusion_matrix"
+
+# Model Checkpointing
+checkpointing:
+  enabled: true
+  save_dir: "checkpoints"
+  monitor: "val_acc"  # val_acc, val_loss
+  mode: "max"  # max for accuracy, min for loss
+  save_best_only: true
+
+# MLflow Tracking
+mlflow:
+  experiment_name: "baseline_densenet"
+  run_name: "densenet121_v1"
+  
+# Device
+device: "cuda"  # cuda, cpu, auto
+
+# Random Seed
+seed: 42

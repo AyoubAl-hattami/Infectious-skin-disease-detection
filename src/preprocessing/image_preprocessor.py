@@ -1,5 +1,6 @@
 # src/preprocessing/image_preprocessor.py
 
+
 import os
 import yaml
 import logging
@@ -11,6 +12,7 @@ from typing import Dict, List, Tuple
 from sklearn.model_selection import train_test_split
 import mlflow
 import dagshub
+
 
 class ImagePreprocessor:
     """
@@ -315,20 +317,33 @@ class ImagePreprocessor:
             # Step 1: Load metadata
             df = self.load_metadata()
             mlflow.log_metric("total_images_loaded", len(df))
+            for disease in self.config['data']['classes']:
+                count = len(df[df['disease'] == disease])
+                mlflow.log_metric(f"raw_{disease}_count", count)
             
             # Step 2: Quality filtering
             df = self.filter_by_quality(df)
             mlflow.log_metric("images_after_filtering", len(df))
+            for disease in self.config['data']['classes']:
+                count = len(df[df['disease'] == disease])
+                mlflow.log_metric(f"filtered_{disease}_count", count)
             
             # Step 3: Class balancing
             df = self.balance_classes(df)
             mlflow.log_metric("images_after_balancing", len(df))
+            for disease in self.config['data']['classes']:
+                count = len(df[df['disease'] == disease])
+                mlflow.log_metric(f"balanced_{disease}_count", count)
             
             # Step 4: Create splits
             splits = self.create_splits(df)
             mlflow.log_metric("train_size", len(splits['train']))
             mlflow.log_metric("val_size", len(splits['val']))
             mlflow.log_metric("test_size", len(splits['test']))
+            for split_name, split_df in splits.items():
+                for disease in self.config['data']['classes']:
+                    count = len(split_df[split_df['disease'] == disease])
+                    mlflow.log_metric(f"{split_name}_{disease}_count", count)
             
             # Step 5: Save processed images
             if self.config['output']['save_to_disk']:
@@ -348,6 +363,7 @@ class ImagePreprocessor:
             if self.config['tracking']['mlflow_enabled']:
                 mlflow.end_run(status="FAILED")
             raise
+
 
 
 if __name__ == "__main__":

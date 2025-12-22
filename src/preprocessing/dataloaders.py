@@ -69,21 +69,13 @@ class SkinDiseaseDataset(Dataset):
         }
         
         return image, label
-    
     def _load_image(self, img_path: str) -> np.ndarray:
-        """
-        Load image from disk.
-        Handles both preprocessed images and raw images.
-        """
+        """Load preprocessed image (already normalized during preprocessing)."""
         img = Image.open(img_path).convert('RGB')
         img_array = np.array(img, dtype=np.float32) / 255.0
-        
-        # Apply MedImageInsight normalization
-        mean = np.array([0.5, 0.5, 0.5])
-        std = np.array([0.5, 0.5, 0.5])
-        img_array = (img_array - mean) / std
-        
+        # NO additional normalization - preprocessing already did it
         return img_array
+
     
     def get_class_weights(self) -> torch.Tensor:
         """

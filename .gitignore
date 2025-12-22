@@ -65,7 +65,7 @@ mlruns/
 # =========================
 checkpoints/
 outputs/
-models/
+# models/
 *.pt
 *.pth
 
@@ -83,5 +83,5 @@ __pycache__/
 *.egg-info/
 # Models (will be DVC tracked later)
 *.h5
-/models/
+# /models/
 # IDEs
